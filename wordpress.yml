@@ -1,0 +1,26 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+
+    - name: Installing packages
+      yum:
+        name: ['unzip','wget','httpd','php70w-gd']
+        state: "installed"
+
+    - name: extracting the packages
+      unarchive:
+        src: http://wordpress.org/latest.zip
+        dest: /usr/local/src/
+        remote_src: yes
+
+    - name: Copying the source code
+      shell: |
+            cp -rvf /usr/local/src/wordpress/* /var/www/html/
+
+    - name: starting the appache service
+      service:
+        name: "httpd"
+        state: "started"
+
+
