@@ -23,4 +23,11 @@
         name: "httpd"
         state: "started"
 
+    - name: copying the configuration file
+      template:
+        src: wp-config-sample.php.j2
+        dest: /var/www/html/wordpress/wp-config-sample.php
+
+
+
 
